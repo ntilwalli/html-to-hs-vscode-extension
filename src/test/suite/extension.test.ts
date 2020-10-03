@@ -11,7 +11,7 @@ suite('Extension Test Suite', () => {
 	test('Test we can open test file', async() => {
 
     const uri = vscode.Uri.file(
-      path.join(__dirname, testFolderLocation, 'test.svg')
+      path.join(__dirname, testFolderLocation, 'spinneroptimized.svg')
 		);
 
 		const document = await vscode.workspace.openTextDocument(uri);
@@ -20,7 +20,7 @@ suite('Extension Test Suite', () => {
 		assert.strictEqual(vscode.window.visibleTextEditors.length, 1);
 
 		// Have not yet figured how to test this... how to switch the activeTextEditor manually?
-		// const result = await vscode.commands.executeCommand('html-to-hs-extension.toReactHyperscript')
+		// const result = await vscode.commands.executeCommand('html-to-hs-vscode-extension.toReactHyperscript')
 		// assert.strictEqual(vscode.window.visibleTextEditors.length, 2)
 		// const svg1 = await (vscode.window.activeTextEditor as any).document.getText(); 
 		// assert.strictEqual(false, /"attributes"/.test(svg1))

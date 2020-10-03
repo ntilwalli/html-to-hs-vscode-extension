@@ -11,7 +11,7 @@ export async function processor(style: 'react' | 'hyperscript'){
 		let result = convert(svg);
 		if (style === 'react') {
 			const regex = /{[\s\S]*?"attributes":[\s]*?{([\s\S]*?)}[\s\S]*?}/gm;
-			result = result.replace(regex, '{$1}');
+			result = result.replace(regex, '{$1}').replace(/"([a-z]*)-([a-z]*)":/g, function (g: string, p1: string, p2: string) { return `"${p1}${p2[0].toUpperCase()}${p2.substring(1)}":` });;
 		}
 		const textDoc = await vscode.workspace.openTextDocument(  
 			{
@@ -30,13 +30,13 @@ export function activate(context: vscode.ExtensionContext) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	let reactDisposable = vscode.commands.registerCommand('html-to-hs-extension.toReactHyperscript', async () => {
+	let reactDisposable = vscode.commands.registerCommand('html-to-hs-vscode-extension.toReactHyperscript', async () => {
 		processor('react');
 	});
 
 	context.subscriptions.push(reactDisposable);
 
-	let hsDisposable = vscode.commands.registerCommand('html-to-hs-extension.toHyperscript', async () => {
+	let hsDisposable = vscode.commands.registerCommand('html-to-hs-vscode-extension.toHyperscript', async () => {
 		processor('hyperscript');
 	});
 

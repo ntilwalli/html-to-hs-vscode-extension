@@ -2,8 +2,10 @@
 .vscode-test/**
 out/test/**
 src/**
+testFiles
 .gitignore
 .yarnrc
+webpack.config.js
 vsc-extension-quickstart.md
 **/tsconfig.json
 **/.eslintrc.json

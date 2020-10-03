@@ -1,62 +1,78 @@
 {
-	"name": "html-to-hs-extension",
-	"displayName": "html-to-hs-extension",
+	"name": "html-to-hs-vscode-extension",
+	"displayName": "html-to-hs-vscode-extension",
 	"description": "Extension for converting html to hyperscript",
 	"version": "0.0.1",
+	"publisher": "ntilwalli",
 	"engines": {
 		"vscode": "^1.49.0"
 	},
+	"license": "MIT",
+	"repository": "https://github.com/ntilwalli/html-to-hs-vscode-extension",
 	"categories": [
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:html-to-hs-extension.toReactHyperscript",
-		"onCommand:html-to-hs-extension.toHyperscript"
+		"onCommand:html-to-hs-vscode-extension.toReactHyperscript",
+		"onCommand:html-to-hs-vscode-extension.toHyperscript"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "html-to-hs-extension.toReactHyperscript",
+				"command": "html-to-hs-vscode-extension.toReactHyperscript",
 				"title": "Convert to React Hyperscript"
 			},
 			{
-				"command": "html-to-hs-extension.toHyperscript",
+				"command": "html-to-hs-vscode-extension.toHyperscript",
 				"title": "Convert to Hyperscript"
 			}
 		],
 		"menus": {
-			"editor/context": [{
-					"when": "resourceExtname == .svg",
-					"command": "html-to-hs-extension.toReactHyperscript",
+			"editor/context": [
+				{
+					"when": "resourceExtname == .svg || resourceExtname == .html",
+					"command": "html-to-hs-vscode-extension.toReactHyperscript",
 					"group": "navigation"
-			}, {
-				"when": "resourceExtname == .svg",
-				"command": "html-to-hs-extension.toHyperscript",
-				"group": "navigation"
-		}]
+				},
+				{
+					"when": "resourceExtname == .svg || resourceExtname == .html",
+					"command": "html-to-hs-vscode-extension.toHyperscript",
+					"group": "navigation"
+				}
+			]
 		}
 	},
+	"__unused": {
+		"vscode:prepublish": "yarn compile"
+	},
 	"scripts": {
-		"vscode:prepublish": "npm run compile",
+		"vscode:prepublish": "webpack --mode production",
+		"webpack": "webpack --mode development",
+		"webpack-dev": "webpack --mode development --watch",
+		"test-compile": "tsc -p ./",
 		"compile": "tsc -p ./",
 		"lint": "eslint src --ext ts",
 		"watch": "tsc -watch -p ./",
-		"pretest": "npm run compile && npm run lint",
-		"test": "node ./out/test/runTest.js"
+		"pretest": "yarn compile && yarn lint",
+		"test": "node ./out/test/runTest.js",
+		"package": "vsce package --yarn"
 	},
 	"devDependencies": {
-		"@types/vscode": "^1.49.0",
 		"@types/glob": "^7.1.3",
 		"@types/mocha": "^8.0.0",
 		"@types/node": "^12.11.7",
-		"eslint": "^7.9.0",
+		"@types/vscode": "^1.49.0",
 		"@typescript-eslint/eslint-plugin": "^4.1.1",
 		"@typescript-eslint/parser": "^4.1.1",
+		"eslint": "^7.9.0",
 		"glob": "^7.1.6",
 		"mocha": "^8.1.3",
+		"ts-loader": "^8.0.4",
 		"typescript": "^4.0.2",
-		"vscode-test": "^1.4.0"
+		"vscode-test": "^1.4.0",
+		"webpack": "^4.44.2",
+		"webpack-cli": "^3.3.12"
 	},
 	"dependencies": {
 		"html-to-hyperscript": "^0.8.0"
